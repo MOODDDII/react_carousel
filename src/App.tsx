@@ -34,6 +34,7 @@ class App extends React.Component<{}, State> {
     const { name, value } = e.target;
     const numberValue = Number(value);
 
+    /* eslint-disable @typescript-eslint/indent */
     if (
       name === 'itemWidth' ||
       name === 'frameSize' ||
@@ -44,11 +45,12 @@ class App extends React.Component<{}, State> {
         this.setState({
           [name]: numberValue,
         } as Pick<
-        State,
-        'itemWidth' | 'frameSize' | 'step' | 'animationDuration'
+          State,
+          'itemWidth' | 'frameSize' | 'step' | 'animationDuration'
         >);
       }
     }
+    /* eslint-disable @typescript-eslint/indent */
   };
 
   render() {
@@ -70,38 +72,51 @@ class App extends React.Component<{}, State> {
         />
 
         <div className="inputs">
-          <input
-            className="itemWidth"
-            type="text"
-            placeholder="Enter width"
-            name="itemWidth"
-            value={itemWidth}
-            onChange={this.handleInputChange}
-          />
-          <input
-            className="frameSize"
-            type="text"
-            placeholder="Enter size of frame"
-            name="frameSize"
-            value={frameSize}
-            onChange={this.handleInputChange}
-          />
-          <input
-            className="step"
-            type="text"
-            placeholder="Enter step"
-            name="step"
-            value={step}
-            onChange={this.handleInputChange}
-          />
-          <input
-            className="animationDuration"
-            type="text"
-            placeholder="Enter duration of animation"
-            name="animationDuration"
-            value={animationDuration}
-            onChange={this.handleInputChange}
-          />
+          <label>
+            Enter width
+            <input
+              className="itemWidth"
+              type="number"
+              placeholder="Enter width"
+              name="itemWidth"
+              value={itemWidth}
+              onChange={this.handleInputChange}
+            />
+          </label>
+
+          <label>
+            Enter size of frame
+            <input
+              className="frameSize"
+              type="number"
+              placeholder="Enter size of frame"
+              name="frameSize"
+              value={frameSize}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <label>
+            Enter step
+            <input
+              className="step"
+              type="number"
+              placeholder="Enter step"
+              name="step"
+              value={step}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <label>
+            Enter duration of animation
+            <input
+              className="animationDuration"
+              type="number"
+              placeholder="Enter duration of animation"
+              name="animationDuration"
+              value={animationDuration}
+              onChange={this.handleInputChange}
+            />
+          </label>
         </div>
       </div>
     );

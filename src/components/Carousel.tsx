@@ -11,34 +11,35 @@ interface CarouselProps {
   infinite: boolean;
 }
 
-
 const Carousel: React.FC<CarouselProps> = ({
   images,
   step,
   frameSize,
   itemWidth,
   animationDuration,
-  infinite,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const totalSlides = images.length;
 
   const nextSlide = () => {
-    if (infinite || currentIndex + step < totalSlides - frameSize + 1) {
-      setCurrentIndex((prev) => Math.min(prev + step, totalSlides - frameSize));
+    if (currentIndex + step < totalSlides - frameSize + 1) {
+      setCurrentIndex(prev => Math.min(prev + step, totalSlides - frameSize));
     }
   };
 
   const prevSlide = () => {
-    if (infinite || currentIndex - step >= 0) {
-      setCurrentIndex((prev) => Math.max(prev - step, 0));
+    if (currentIndex - step >= 0) {
+      setCurrentIndex(prev => Math.max(prev - step, 0));
     }
   };
 
   return (
     <div className="Carousel">
-      <div className="Carousel__container" style={{ width: `${itemWidth * frameSize}px` }}>
+      <div
+        className="Carousel__container"
+        style={{ width: `${itemWidth * frameSize}px` }}
+      >
         <ul
           className="Carousel__list"
           style={{
@@ -52,28 +53,21 @@ const Carousel: React.FC<CarouselProps> = ({
                 className="Carousel__img"
                 src={image}
                 alt={`Slide ${index}`}
-                style={{ width: `${itemWidth}px`}}
+                style={{ width: `${itemWidth}px` }}
               />
             </li>
           ))}
         </ul>
       </div>
 
-      <button
-        type="button"
-        onClick={prevSlide}
-      >
+      <button type="button" onClick={prevSlide}>
         Prev
       </button>
-      <button
-        type="button"
-        onClick={nextSlide}
-        data-cy="next"
-      >
+      <button type="button" onClick={nextSlide} data-cy="next">
         Next
       </button>
     </div>
   );
-}
+};
 
 export default Carousel;
