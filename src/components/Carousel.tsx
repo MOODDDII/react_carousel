@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
-import { useState } from 'react';
 
 interface CarouselProps {
   images: string[];
@@ -17,21 +16,28 @@ const Carousel: React.FC<CarouselProps> = ({
   frameSize,
   itemWidth,
   animationDuration,
+  infinite,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const totalSlides = images.length;
 
   const nextSlide = () => {
-    if (currentIndex + step < totalSlides - frameSize + 1) {
-      setCurrentIndex(prev => Math.min(prev + step, totalSlides - frameSize));
-    }
+    setCurrentIndex((prev) => {
+      if (infinite) {
+        return (prev + step) % totalSlides;
+      }
+      return Math.min(prev + step, totalSlides - frameSize);
+    });
   };
 
   const prevSlide = () => {
-    if (currentIndex - step >= 0) {
-      setCurrentIndex(prev => Math.max(prev - step, 0));
-    }
+    setCurrentIndex((prev) => {
+      if (infinite) {
+        return (prev - step + totalSlides) % totalSlides;
+      }
+      return Math.max(prev - step, 0);
+    });
   };
 
   return (
@@ -54,6 +60,7 @@ const Carousel: React.FC<CarouselProps> = ({
                 src={image}
                 alt={`Slide ${index}`}
                 style={{ width: `${itemWidth}px` }}
+                width={itemWidth}
               />
             </li>
           ))}

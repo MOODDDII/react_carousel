@@ -8,6 +8,7 @@ interface State {
   frameSize: number;
   step: number;
   animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -28,38 +29,44 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    infinite: false,
   };
 
   handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const numberValue = Number(value);
+    const { name, value, type } = e.target;
+    const parsedValue = type === 'number' ? Number(value) : value;
 
-    /* eslint-disable @typescript-eslint/indent */
-    if (
+    if (name === 'infinite') {
+      this.setState({ infinite: (e.target as HTMLInputElement).checked });
+    } else if (
       name === 'itemWidth' ||
       name === 'frameSize' ||
       name === 'step' ||
       name === 'animationDuration'
     ) {
-      if (!isNaN(numberValue)) {
+      if (!isNaN(parsedValue as number)) {
         this.setState({
-          [name]: numberValue,
+          [name]: parsedValue,
         } as Pick<
           State,
           'itemWidth' | 'frameSize' | 'step' | 'animationDuration'
         >);
       }
     }
-    /* eslint-disable @typescript-eslint/indent */
   };
 
   render() {
-    const { images, itemWidth, frameSize, step, animationDuration } =
-      this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <Carousel
@@ -68,50 +75,52 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinite={false}
+          infinite={infinite}
         />
 
         <div className="inputs">
-          <label>
+          <label htmlFor="itemWidthId">
             Enter width
             <input
+              id="itemWidthId"
               className="itemWidth"
               type="number"
-              placeholder="Enter width"
               name="itemWidth"
               value={itemWidth}
               onChange={this.handleInputChange}
             />
           </label>
 
-          <label>
+          <label htmlFor="frameSizeId">
             Enter size of frame
             <input
+              id="frameSizeId"
               className="frameSize"
               type="number"
-              placeholder="Enter size of frame"
               name="frameSize"
               value={frameSize}
               onChange={this.handleInputChange}
             />
           </label>
-          <label>
+
+          <label htmlFor="stepId">
             Enter step
             <input
+              id="stepId"
               className="step"
               type="number"
-              placeholder="Enter step"
               name="step"
               value={step}
               onChange={this.handleInputChange}
             />
           </label>
-          <label>
+
+          <label htmlFor="animationDurationId">
             Enter duration of animation
             <input
+              id="animationDurationId"
               className="animationDuration"
               type="number"
-              placeholder="Enter duration of animation"
               name="animationDuration"
               value={animationDuration}
               onChange={this.handleInputChange}
