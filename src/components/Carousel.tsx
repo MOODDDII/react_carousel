@@ -23,29 +23,28 @@ const Carousel: React.FC<CarouselProps> = ({
   const totalSlides = images.length;
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => {
+    setCurrentIndex(prev => {
       if (infinite) {
         return (prev + step) % totalSlides;
       }
+
       return Math.min(prev + step, totalSlides - frameSize);
     });
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => {
+    setCurrentIndex(prev => {
       if (infinite) {
         return (prev - step + totalSlides) % totalSlides;
       }
+
       return Math.max(prev - step, 0);
     });
   };
 
   return (
     <div className="Carousel">
-      <div
-        className="Carousel__container"
-        style={{ width: `${itemWidth * frameSize}px` }}
-      >
+      <div className="Carousel__container" style={{ width: `${itemWidth * frameSize}px` }}>
         <ul
           className="Carousel__list"
           style={{

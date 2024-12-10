@@ -47,23 +47,13 @@ class App extends React.Component<{}, State> {
       if (!isNaN(parsedValue as number)) {
         this.setState({
           [name]: parsedValue,
-        } as Pick<
-          State,
-          'itemWidth' | 'frameSize' | 'step' | 'animationDuration'
-        >);
+        } as Pick<State, 'itemWidth' | 'frameSize' | 'step' | 'animationDuration'>);
       }
     }
   };
 
   render() {
-    const {
-      images,
-      itemWidth,
-      frameSize,
-      step,
-      animationDuration,
-      infinite,
-    } = this.state;
+    const { images, itemWidth, frameSize, step, animationDuration, infinite } = this.state;
 
     return (
       <div className="App">
